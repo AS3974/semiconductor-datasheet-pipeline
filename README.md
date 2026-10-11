@@ -119,19 +119,3 @@ A Power BI dashboard connects live to the Gold layer via the Databricks SQL Ware
 - Slicers for manufacturer, chip name, architecture family, and flash range
 
 The `.pbix` file is included in the repository.
-
----
-
-## Roadmap
-
-- Add Dev / Prod targets to the bundle
-- CI/CD via GitHub Actions
-- Unit tests for transformations (pytest)
-- Lakeview dashboard-as-code
-- DAX measures and KPI cards in Power BI
-
----
-
-## License
-
-MIT
