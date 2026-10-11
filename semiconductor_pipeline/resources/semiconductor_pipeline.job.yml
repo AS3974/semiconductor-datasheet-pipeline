@@ -1,0 +1,39 @@
+# Semiconductor datasheet pipeline — Bronze → Silver → Gold → Quality
+
+resources:
+  jobs:
+    semiconductor_pipeline_main:
+      name: semiconductor_pipeline_main
+
+      trigger:
+        periodic:
+          interval: 1
+          unit: DAYS
+
+      tasks:
+        - task_key: bronze_ingest
+          notebook_task:
+            notebook_path: ../notebooks/01_bronze_ingest.ipynb
+
+        - task_key: silver_extract
+          depends_on:
+            - task_key: bronze_ingest
+          notebook_task:
+            notebook_path: ../notebooks/02_silver_extract.ipynb
+
+        - task_key: gold_build
+          depends_on:
+            - task_key: silver_extract
+          notebook_task:
+            notebook_path: ../notebooks/03_gold_build.ipynb
+
+        - task_key: quality_checks
+          depends_on:
+            - task_key: gold_build
+          notebook_task:
+            notebook_path: ../notebooks/04_quality_checks.ipynb
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "5"
