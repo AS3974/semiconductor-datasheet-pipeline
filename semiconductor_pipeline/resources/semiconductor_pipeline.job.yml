@@ -14,42 +14,56 @@ resources:
         - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/01_bronze_ingest.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
       
         - task_key: peripherals_extract
           depends_on:
             - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/05_peripherals_extract.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
         
         - task_key: pricing_dimension
           depends_on:
             - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/07_pricing_dimension.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
         - task_key: silver_extract
           depends_on:
             - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/02_silver_extract.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
         - task_key: gold_build
           depends_on:
             - task_key: silver_extract
           notebook_task:
             notebook_path: ../notebooks/03_gold_build.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
         - task_key: quality_checks
           depends_on:
             - task_key: gold_build
           notebook_task:
             notebook_path: ../notebooks/04_quality_checks.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
             
         - task_key: vendor_dimension
           depends_on:
             - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/06_vendor_dimension.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
 
       environments:
         - environment_key: default
