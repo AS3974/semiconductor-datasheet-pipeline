@@ -20,6 +20,12 @@ resources:
             - task_key: bronze_ingest
           notebook_task:
             notebook_path: ../notebooks/05_peripherals_extract.ipynb
+        
+        - task_key: pricing_dimension
+          depends_on:
+            - task_key: bronze_ingest
+          notebook_task:
+            notebook_path: ../notebooks/07_pricing_dimension.ipynb
 
         - task_key: silver_extract
           depends_on:
